@@ -33,7 +33,7 @@ public abstract class ChessPlayerConverter {
         return chessPlayerDTO;
     }
 
-    public static ChessPlayer convertChessPlayerDtoToEntity(ChessPlayerPayloadDTO chessPlayerPayloadDTO){
+    public static ChessPlayer convertChessPlayerPayloadDtoToEntity(ChessPlayerPayloadDTO chessPlayerPayloadDTO){
         ChessPlayer chessPlayer = null;
         if(chessPlayerPayloadDTO != null){
             chessPlayer = new ChessPlayer();

@@ -22,6 +22,11 @@ public class ChessPlayerController {
         return ChessPlayerConverter.convertChessPlayerEntityListToDto(this.chessPlayerService.getAllChessPlayers());
     }
 
+    @PostMapping
+    void addChessPlayer(@RequestBody ChessPlayerPayloadDTO chessPlayerPayloadDTO){
+        this.chessPlayerService.saveChessPlayer(ChessPlayerConverter.convertChessPlayerPayloadDtoToEntity(chessPlayerPayloadDTO));
+    }
+
     @DeleteMapping("/{id}")
     void deleteItem(@PathVariable Long id) {
         this.chessPlayerService.deleteItemById(id);
@@ -34,6 +39,6 @@ public class ChessPlayerController {
 
     @PatchMapping("/{id}")
     void patchChessPlayerById(@PathVariable Long id, @RequestBody ChessPlayerPayloadDTO chessPlayerPayloadDTO) {
-        this.chessPlayerService.editItemById(id, ChessPlayerConverter.convertChessPlayerDtoToEntity(chessPlayerPayloadDTO));
+        this.chessPlayerService.editItemById(id, ChessPlayerConverter.convertChessPlayerPayloadDtoToEntity(chessPlayerPayloadDTO));
     }
 }

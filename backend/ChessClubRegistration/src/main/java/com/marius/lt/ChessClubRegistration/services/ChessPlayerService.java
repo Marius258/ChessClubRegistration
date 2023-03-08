@@ -51,4 +51,8 @@ public class ChessPlayerService {
         }
         this.chessPlayerRepository.saveAndFlush(oldChessPlayer);
     }
+
+    public void saveChessPlayer(ChessPlayer chessPlayer) {
+        this.chessPlayerRepository.saveAndFlush(chessPlayer);
+    }
 }

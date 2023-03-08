@@ -20,7 +20,7 @@ import java.time.Period;
 @Entity
 public class ChessPlayer {
     @Id
-    @Column(name = "pin", nullable = false)
+    @Column(nullable = false)
     private Long pin; // PERSONAL IDENTIFICATION NUMBER
     @Column(nullable = false)
     private String name;

@@ -1,6 +1,7 @@
 package com.marius.lt.ChessClubRegistration.converters;
 
 import com.marius.lt.ChessClubRegistration.dtos.ChessPlayerDTO;
+import com.marius.lt.ChessClubRegistration.dtos.ChessPlayerPayloadDTO;
 import com.marius.lt.ChessClubRegistration.entities.ChessPlayer;
 
 import java.util.ArrayList;
@@ -30,5 +31,18 @@ public abstract class ChessPlayerConverter {
             chessPlayerDTO.setTimeSinceStartedPlaying(chessPlayer.getTimeSinceStartedPlaying());
         }
         return chessPlayerDTO;
+    }
+
+    public static ChessPlayer convertChessPlayerDtoToEntity(ChessPlayerPayloadDTO chessPlayerPayloadDTO){
+        ChessPlayer chessPlayer = null;
+        if(chessPlayerPayloadDTO != null){
+            chessPlayer = new ChessPlayer();
+            chessPlayer.setPin(chessPlayerPayloadDTO.getPin());
+            chessPlayer.setName(chessPlayerPayloadDTO.getName());
+            chessPlayer.setLastname(chessPlayerPayloadDTO.getLastname());
+            chessPlayer.setEmail(chessPlayerPayloadDTO.getEmail());
+            chessPlayer.setStartedPlaying(chessPlayerPayloadDTO.getStartedPlaying());
+        }
+        return chessPlayer;
     }
 }

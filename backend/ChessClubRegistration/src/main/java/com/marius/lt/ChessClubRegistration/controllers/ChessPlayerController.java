@@ -2,12 +2,10 @@ package com.marius.lt.ChessClubRegistration.controllers;
 
 import com.marius.lt.ChessClubRegistration.converters.ChessPlayerConverter;
 import com.marius.lt.ChessClubRegistration.dtos.ChessPlayerDTO;
+import com.marius.lt.ChessClubRegistration.dtos.ChessPlayerPayloadDTO;
 import com.marius.lt.ChessClubRegistration.services.ChessPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,20 @@ public class ChessPlayerController {
     @GetMapping
     List<ChessPlayerDTO> getAllChessPlayers() {
         return ChessPlayerConverter.convertChessPlayerEntityListToDto(this.chessPlayerService.getAllChessPlayers());
+    }
+
+    @DeleteMapping("/{id}")
+    void deleteItem(@PathVariable Long id) {
+        this.chessPlayerService.deleteItemById(id);
+    }
+
+    @GetMapping("/{id}")
+    ChessPlayerDTO getItemById(@PathVariable Long id) {
+        return ChessPlayerConverter.convertChessPlayerEntityToDto(this.chessPlayerService.getChessPlayerById(id));
+    }
+
+    @PatchMapping("/{id}")
+    void patchChessPlayerById(@PathVariable Long id, @RequestBody ChessPlayerPayloadDTO chessPlayerPayloadDTO) {
+        this.chessPlayerService.editItemById(id, ChessPlayerConverter.convertChessPlayerDtoToEntity(chessPlayerPayloadDTO));
     }
 }

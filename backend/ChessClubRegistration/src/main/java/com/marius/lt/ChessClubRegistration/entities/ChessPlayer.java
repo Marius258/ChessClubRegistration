@@ -8,7 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 
 @NoArgsConstructor
 @Getter
@@ -28,6 +32,26 @@ public class ChessPlayer {
     private LocalDate startedPlaying;
 
     public String getGender() {
-        return String.valueOf(Genders.getGenderByPin(this.pin));
+        return Genders.getGenderByPin(this.pin);
+    }
+
+    public String getDob() {
+        String dateFromPin = Long.toString((this.pin / 10000) % 1000000);
+        DateFormat inputFormat = new SimpleDateFormat("yyMMdd");
+        DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return outputFormat.format(inputFormat.parse(dateFromPin));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getTimeSinceStartedPlaying() {
+        LocalDate currentDate = LocalDate.now();
+        Period period = Period.between(this.startedPlaying, currentDate);
+        return String.format("%d years %d days",
+                period.getYears(),
+                period.getMonths());
     }
 }

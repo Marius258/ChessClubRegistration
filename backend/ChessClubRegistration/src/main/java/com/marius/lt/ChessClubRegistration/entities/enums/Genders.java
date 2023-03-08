@@ -15,7 +15,7 @@ public enum Genders {
     }
 
     public static String getGenderByPin(Long pin) {
-        long firstDigit = pin / 100000000000L;
+        long firstDigit = pin / 10000000000L;
         String gender = "unknown";
         for (Genders g : Genders.values()) {
             if (g.twentiethCentury == firstDigit || g.twentyFirstCentury == firstDigit) {

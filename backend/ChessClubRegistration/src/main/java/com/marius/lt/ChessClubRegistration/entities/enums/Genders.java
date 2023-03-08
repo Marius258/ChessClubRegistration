@@ -14,11 +14,10 @@ public enum Genders {
         this.twentyFirstCentury = twentyFirstCentury;
     }
 
-    public static String getGenderByPin(Long pin) {
-        long firstDigit = pin / 10000000000L;
+    public static String getGenderByPin(int firstDigitFromPin) {
         String gender = "unknown";
         for (Genders g : Genders.values()) {
-            if (g.twentiethCentury == firstDigit || g.twentyFirstCentury == firstDigit) {
+            if (g.twentiethCentury == firstDigitFromPin || g.twentyFirstCentury == firstDigitFromPin) {
                 gender = g.gender;
                 break;
             }

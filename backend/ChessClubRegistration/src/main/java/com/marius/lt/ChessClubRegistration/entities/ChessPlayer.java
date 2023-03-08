@@ -8,9 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -32,26 +29,35 @@ public class ChessPlayer {
     private LocalDate startedPlaying;
 
     public String getGender() {
-        return Genders.getGenderByPin(this.pin);
-    }
-
-    public String getDob() {
-        String dateFromPin = Long.toString((this.pin / 10000) % 1000000);
-        DateFormat inputFormat = new SimpleDateFormat("yyMMdd");
-        DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            return outputFormat.format(inputFormat.parse(dateFromPin));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return Genders.getGenderByPin(this.getFirstDigitFromPin());
     }
 
     public String getTimeSinceStartedPlaying() {
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(this.startedPlaying, currentDate);
-        return String.format("%d years %d days",
-                period.getYears(),
-                period.getMonths());
+        return String.format("%d years %d days", period.getYears(), period.getMonths());
+    }
+
+    public int getAge() {
+        String pin = String.valueOf(this.pin);
+        int year = Integer.parseInt(pin.substring(1, 3));
+        int month = Integer.parseInt(pin.substring(3, 5));
+        int day = Integer.parseInt(pin.substring(5, 7));
+        return Period.between(LocalDate.of(this.getCentury() + year, month, day), LocalDate.now()).getYears();
+    }
+
+    private int getFirstDigitFromPin() {
+        return (int) (pin / 10000000000L);
+    }
+
+    private int getCentury() {
+        int firstDigitFromPin = this.getFirstDigitFromPin();
+        int century = 0;
+        if (firstDigitFromPin == 3 || firstDigitFromPin == 4) {
+            century = 1900;
+        } else if (firstDigitFromPin == 5 || firstDigitFromPin == 6) {
+            century = 2000;
+        }
+        return century;
     }
 }

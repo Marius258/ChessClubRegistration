@@ -35,15 +35,19 @@ public class ChessPlayer {
     public String getTimeSinceStartedPlaying() {
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(this.startedPlaying, currentDate);
-        return String.format("%d years %d days", period.getYears(), period.getMonths());
+        return String.format("%d years %d months", period.getYears(), period.getMonths());
     }
 
     public int getAge() {
+        return Period.between(this.parseDobFromPin(), LocalDate.now()).getYears();
+    }
+
+    private LocalDate parseDobFromPin() {
         String pin = String.valueOf(this.pin);
         int year = Integer.parseInt(pin.substring(1, 3));
         int month = Integer.parseInt(pin.substring(3, 5));
         int day = Integer.parseInt(pin.substring(5, 7));
-        return Period.between(LocalDate.of(this.getCentury() + year, month, day), LocalDate.now()).getYears();
+        return LocalDate.of(this.getCentury() + year, month, day);
     }
 
     private int getFirstDigitFromPin() {

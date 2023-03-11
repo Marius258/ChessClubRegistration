@@ -27,32 +27,31 @@ public class ChessPlayerService {
         return optionalChessPlayer.orElse(null);
     }
 
-    public void editItemById(Long id, ChessPlayer chessPlayer) {
-        Optional<ChessPlayer> oldOptionalChessPlayer = this.chessPlayerRepository.findById(id);
-        if (oldOptionalChessPlayer.isEmpty()) {
-            return;
-        }
-        ChessPlayer oldChessPlayer = oldOptionalChessPlayer.get();
+    public void editItemById(ChessPlayer oldChessPlayer, ChessPlayer newChessPlayer) {
 
-        if (chessPlayer.getPin() != null && !oldChessPlayer.getPin().equals(chessPlayer.getPin())) {
-            oldChessPlayer.setPin(chessPlayer.getPin());
+        if (newChessPlayer.getPin() != null && !oldChessPlayer.getPin().equals(newChessPlayer.getPin())) {
+            oldChessPlayer.setPin(newChessPlayer.getPin());
         }
-        if (chessPlayer.getName() != null && !oldChessPlayer.getName().equals(chessPlayer.getName())) {
-            oldChessPlayer.setName(chessPlayer.getName());
+        if (newChessPlayer.getName() != null && !oldChessPlayer.getName().equals(newChessPlayer.getName())) {
+            oldChessPlayer.setName(newChessPlayer.getName());
         }
-        if (chessPlayer.getLastname() != null && !oldChessPlayer.getLastname().equals(chessPlayer.getLastname())) {
-            oldChessPlayer.setLastname(chessPlayer.getLastname());
+        if (newChessPlayer.getLastname() != null && !oldChessPlayer.getLastname().equals(newChessPlayer.getLastname())) {
+            oldChessPlayer.setLastname(newChessPlayer.getLastname());
         }
-        if (chessPlayer.getEmail() != null && !oldChessPlayer.getEmail().equals(chessPlayer.getEmail())) {
-            oldChessPlayer.setEmail(chessPlayer.getEmail());
+        if (newChessPlayer.getEmail() != null && !oldChessPlayer.getEmail().equals(newChessPlayer.getEmail())) {
+            oldChessPlayer.setEmail(newChessPlayer.getEmail());
         }
-        if (chessPlayer.getStartedPlaying() != null && !oldChessPlayer.getStartedPlaying().equals(chessPlayer.getStartedPlaying())) {
-            oldChessPlayer.setStartedPlaying(chessPlayer.getStartedPlaying());
+        if (newChessPlayer.getStartedPlaying() != null && !oldChessPlayer.getStartedPlaying().equals(newChessPlayer.getStartedPlaying())) {
+            oldChessPlayer.setStartedPlaying(newChessPlayer.getStartedPlaying());
         }
         this.chessPlayerRepository.saveAndFlush(oldChessPlayer);
     }
 
     public void saveChessPlayer(ChessPlayer chessPlayer) {
         this.chessPlayerRepository.saveAndFlush(chessPlayer);
+    }
+
+    public ChessPlayer getChessPlayerByEmail(String playerEmail) {
+        return this.chessPlayerRepository.findByEmail(playerEmail);
     }
 }

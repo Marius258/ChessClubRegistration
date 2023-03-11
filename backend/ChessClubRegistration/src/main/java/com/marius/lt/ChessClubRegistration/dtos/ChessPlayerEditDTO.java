@@ -1,6 +1,8 @@
 package com.marius.lt.ChessClubRegistration.dtos;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +14,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Data
-public class ChessPlayerPayloadDTO {
+public class ChessPlayerEditDTO {
 
-    @NotNull(message = "Pin must not be blank")
-    @Min(value = 30000000000L, message = "Pin must be 11 digits long and start with 3 - 6")
-    @Max(value = 69999999999L, message = "Pin must be 11 digits long and start with 3 - 6")
-    private Long pin; // PERSONAL IDENTIFICATION NUMBER
     @NotBlank(message = "Name must not be blank")
     private String name;
     @NotBlank(message = "Lastname must not be blank")

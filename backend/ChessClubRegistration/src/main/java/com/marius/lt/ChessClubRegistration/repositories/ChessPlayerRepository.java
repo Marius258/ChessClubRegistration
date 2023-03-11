@@ -4,4 +4,5 @@ import com.marius.lt.ChessClubRegistration.entities.ChessPlayer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChessPlayerRepository extends JpaRepository<ChessPlayer, Long> {
+    ChessPlayer findByEmail(String email);
 }

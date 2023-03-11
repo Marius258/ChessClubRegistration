@@ -23,17 +23,70 @@
 			},
 			"response": [
 				{
-					"name": "all chess players",
+					"name": "No chess players found",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/chess_player",
-							"protocol": "http",
+							"raw": "{{baseURL}}/chess_player",
 							"host": [
-								"localhost"
+								"{{baseURL}}"
 							],
-							"port": "8080",
+							"path": [
+								"chess_player"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 16:19:36 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2023-03-11T18:19:36.5971312\",\n    \"message\": \"There are no chess player in the database. Try adding one\",\n    \"details\": null\n}"
+				},
+				{
+					"name": "Got all chess players",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/chess_player",
+							"host": [
+								"{{baseURL}}"
+							],
 							"path": [
 								"chess_player"
 							]
@@ -65,7 +118,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 08 Mar 2023 16:03:24 GMT"
+							"value": "Sat, 11 Mar 2023 16:21:32 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -77,18 +130,18 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"name\": \"jonas\",\n        \"lastname\": \"jonaitis\",\n        \"email\": \"jonas.jonaitis2@gmail.com\",\n        \"gender\": \"male\",\n        \"age\": 28,\n        \"timeSinceStartedPlaying\": \"22 years 4 days\"\n    },\n    {\n        \"name\": \"kristinaite\",\n        \"lastname\": \"kristina\",\n        \"email\": \"kristina.kristinaite@gmail.com\",\n        \"gender\": \"female\",\n        \"age\": 20,\n        \"timeSinceStartedPlaying\": \"11 years 0 days\"\n    }\n]"
+					"body": "[\n    {\n        \"name\": \"tomaitis\",\n        \"lastname\": \"tomas\",\n        \"email\": \"tomas@gmail.com\",\n        \"gender\": \"male\",\n        \"age\": 71,\n        \"timeSinceStartedPlaying\": \"52 years 2 months\"\n    },\n    {\n        \"name\": \"kristinaite\",\n        \"lastname\": \"kristina\",\n        \"email\": \"kristina.kristinaite@gmail.com\",\n        \"gender\": \"female\",\n        \"age\": 17,\n        \"timeSinceStartedPlaying\": \"11 years 0 months\"\n    }\n]"
 				}
 			]
 		},
 		{
-			"name": "add chess player",
+			"name": "Post new chess player",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    // \"pin\": 37002108918,\r\n    \"name\": \"tomas\",\r\n    \"lastname\": \"tomaitis\",\r\n    \"email\": \"tomas.tomaitis@gmail.com\",\r\n    \"startedPlaying\": \"1995-09-12\"\r\n}",
+					"raw": "{\r\n    \"pin\": 37002108918,\r\n    \"name\": \"jonas\",\r\n    \"lastname\": \"jonaitis\",\r\n    \"email\": \"jonas@gmail.com\",\r\n    \"startedPlaying\": \"1995-09-12\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -107,13 +160,13 @@
 			},
 			"response": [
 				{
-					"name": "added chess player",
+					"name": "New chess player added",
 					"originalRequest": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pin\": 37002108918,\r\n    \"name\": \"tomas\",\r\n    \"lastname\": \"tomaitis\",\r\n    \"email\": \"tomas.tomaitis@gmail.com\",\r\n    \"startedPlaying\": \"1995-09-12\"\r\n}",
+							"raw": "{\r\n    \"pin\": 37002108918,\r\n    \"name\": \"jonas\",\r\n    \"lastname\": \"jonaitis\",\r\n    \"email\": \"jonas@gmail.com\",\r\n    \"startedPlaying\": \"1995-09-12\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,7 +205,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 08 Mar 2023 17:07:03 GMT"
+							"value": "Sat, 11 Mar 2023 16:24:31 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -165,6 +218,66 @@
 					],
 					"cookie": [],
 					"body": null
+				},
+				{
+					"name": "Validation errors",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pin\": 3700210891,\r\n    \"name\": \"\",\r\n    \"lastname\": \"\",\r\n    \"email\": \"@\",\r\n    \"startedPlaying\": \"2030-09-12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/chess_player",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"chess_player"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 16:25:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2023-03-11T18:25:31.6871902\",\n    \"message\": \"Validation error\",\n    \"details\": {\n        \"pin\": \"Pin must be 11 digits long and start with 3 - 6\",\n        \"name\": \"Name must not be blank\",\n        \"startedPlaying\": \"Started playing date is in the future\",\n        \"email\": \"Incorrect email format\",\n        \"lastname\": \"Lastname must not be blank\"\n    }\n}"
 				}
 			]
 		},
@@ -185,14 +298,14 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "39502108918"
+							"value": "35108028710"
 						}
 					]
 				}
 			},
 			"response": [
 				{
-					"name": "chess player",
+					"name": "No chess player found",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
@@ -209,6 +322,68 @@
 								{
 									"key": "id",
 									"value": "39502108918"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 16:22:13 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2023-03-11T18:22:13.4062302\",\n    \"message\": \"Chess player not found\",\n    \"details\": null\n}"
+				},
+				{
+					"name": "Got chess player",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/chess_player/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"chess_player",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "35108028710"
 								}
 							]
 						}
@@ -239,7 +414,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 08 Mar 2023 16:49:21 GMT"
+							"value": "Sat, 11 Mar 2023 16:23:23 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -251,7 +426,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"name\": \"jonas\",\n    \"lastname\": \"jonaitis\",\n    \"email\": \"jonas.jonaitis2@gmail.com\",\n    \"gender\": \"male\",\n    \"age\": 28,\n    \"timeSinceStartedPlaying\": \"22 years 4 days\"\n}"
+					"body": "{\n    \"name\": \"tomaitis\",\n    \"lastname\": \"tomas\",\n    \"email\": \"tomas@gmail.com\",\n    \"gender\": \"male\",\n    \"age\": 71,\n    \"timeSinceStartedPlaying\": \"52 years 2 months\"\n}"
 				}
 			]
 		},
@@ -272,14 +447,14 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "60210299320"
+							"value": "37002108918"
 						}
 					]
 				}
 			},
 			"response": [
 				{
-					"name": "deleted chess player",
+					"name": "No chess player found",
 					"originalRequest": {
 						"method": "DELETE",
 						"header": [],
@@ -295,7 +470,69 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "60210299320"
+									"value": "3700210891"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 16:29:19 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2023-03-11T18:29:19.4173965\",\n    \"message\": \"Chess player not found\",\n    \"details\": null\n}"
+				},
+				{
+					"name": "Deleted chess player",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/chess_player/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"chess_player",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "37002108918"
 								}
 							]
 						}
@@ -322,7 +559,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 08 Mar 2023 16:54:38 GMT"
+							"value": "Sat, 11 Mar 2023 16:29:32 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -345,7 +582,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"pin\": 39502108918,\r\n    \"name\": \"jonas\",\r\n    \"lastname\": \"jonaitis\",\r\n    \"email\": \"jonas.jonaitis200300@gmail.com\",\r\n    \"startedPlaying\": \"2023-10-13\"\r\n}",
+					"raw": "{\r\n    \"name\": \"asd\",\r\n    \"lastname\": \"asd\",\r\n    \"email\": \"asd@gmail.com\",\r\n    \"startedPlaying\": \"2000-10-13\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -364,20 +601,20 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "39502108918"
+							"value": "37002108918"
 						}
 					]
 				}
 			},
 			"response": [
 				{
-					"name": "edited chess player",
+					"name": "Edit success",
 					"originalRequest": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pin\": 39502108918,\r\n    \"name\": \"jonas\",\r\n    \"lastname\": \"jonaitis\",\r\n    \"email\": \"jonas.jonaitis200300@gmail.com\",\r\n    \"startedPlaying\": \"2023-10-13\"\r\n}",
+							"raw": "{\r\n    \"pin\": 39502108918,\r\n    \"name\": \"jonas\",\r\n    \"lastname\": \"jonaitis\",\r\n    \"email\": \"jonas.jonaitis200300@gmail.com\",\r\n    \"startedPlaying\": \"2000-10-13\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -396,7 +633,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "39502108918"
+									"value": "37002108918"
 								}
 							]
 						}
@@ -423,7 +660,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 08 Mar 2023 16:53:25 GMT"
+							"value": "Sat, 11 Mar 2023 16:26:46 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -436,6 +673,144 @@
 					],
 					"cookie": [],
 					"body": null
+				},
+				{
+					"name": "Validation errors",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pin\": 3950210891,\r\n    \"name\": \"\",\r\n    \"lastname\": \"\",\r\n    \"email\": \"gmail.com\",\r\n    \"startedPlaying\": \"2023-10-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/chess_player/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"chess_player",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "37002108918"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 16:27:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2023-03-11T18:27:24.4353519\",\n    \"message\": \"Validation error\",\n    \"details\": {\n        \"name\": \"Name must not be blank\",\n        \"startedPlaying\": \"Started playing date is in the future\",\n        \"email\": \"Incorrect email format\",\n        \"lastname\": \"Lastname must not be blank\"\n    }\n}"
+				},
+				{
+					"name": "No chess player found",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"asd\",\r\n    \"lastname\": \"asd\",\r\n    \"email\": \"asd@gmail.com\",\r\n    \"startedPlaying\": \"2000-10-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/chess_player/:id",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"chess_player",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3700210891"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 16:28:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2023-03-11T18:28:44.9356305\",\n    \"message\": \"Chess player not found\",\n    \"details\": null\n}"
 				}
 			]
 		}

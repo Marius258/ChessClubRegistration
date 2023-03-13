@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 public class ChessPlayerDTO {
 
+    private Long pin;
     private String name;
     private String lastname;
     private String email;

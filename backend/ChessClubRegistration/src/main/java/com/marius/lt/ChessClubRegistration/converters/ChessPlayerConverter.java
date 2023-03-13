@@ -24,6 +24,7 @@ public abstract class ChessPlayerConverter {
         ChessPlayerDTO chessPlayerDTO = null;
         if (chessPlayer != null) {
             chessPlayerDTO = new ChessPlayerDTO();
+            chessPlayerDTO.setPin(chessPlayer.getPin());
             chessPlayerDTO.setName(chessPlayer.getName());
             chessPlayerDTO.setLastname(chessPlayer.getLastname());
             chessPlayerDTO.setEmail(chessPlayer.getEmail());

@@ -13,13 +13,15 @@ export const getMemberById = async (memberId) => {
 }
 
 export const saveMember = async (member) => {
-  await fetch(`${API_URL}/chess_player`, {
+  const response = await fetch(`${API_URL}/chess_player`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(member),
   })
+  const data = await response.json()
+  return data
 }
 
 export const patchMember = async (member, id) => {

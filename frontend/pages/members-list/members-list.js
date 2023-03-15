@@ -1,9 +1,10 @@
 import { getMembers, deleteMemberById } from '../../commons/requests.js'
+import { errorHandler } from '../../commons/errorHandler.js'
 
 const renderMemberList = (members) => {
   const memberListTable = document.querySelector('#memberListTable')
   if (members.message) {
-    // TODO add error message
+    errorHandler(members)
     return
   }
   memberListTable.classList = 'd-table table table-striped '
@@ -35,19 +36,30 @@ const renderMemberList = (members) => {
     timeSinceStartedPlayingCell.innerText = m.timeSinceStartedPlaying
     memberRow.appendChild(timeSinceStartedPlayingCell)
 
+    const actionsCell = document.createElement('td')
+    actionsCell.classList = 'd-flex justify-content-evenly'
+    memberRow.appendChild(actionsCell)
+
+    const editBtn = document.createElement('a')
+    editBtn.innerText = 'edit'
+    editBtn.classList = 'btn btn-warning'
+    editBtn.href = '../edit-member/edit-member.html'
+    actionsCell.appendChild(editBtn)
+
     const deleteBtn = document.createElement('button')
     deleteBtn.innerText = 'delete'
     deleteBtn.classList = 'btn btn-danger'
-    memberRow.appendChild(deleteBtn)
     deleteBtn.addEventListener('click', () => {
       deleteMemberById(m.pin)
+      window.location.reload()
     })
+    actionsCell.appendChild(deleteBtn)
+
     memberListTableBody.appendChild(memberRow)
   })
 }
 
 ;(async () => {
   const members = await getMembers()
-  console.log(members)
   renderMemberList(members)
 })()

@@ -35,7 +35,7 @@ public class ChessPlayer {
     public String getTimeSinceStartedPlaying() {
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(this.startedPlaying, currentDate);
-        return String.format("%d years %d months", period.getYears(), period.getMonths());
+        return String.format("%d years %d months %d days", period.getYears(), period.getMonths(), period.getDays());
     }
 
     public int getAge() {

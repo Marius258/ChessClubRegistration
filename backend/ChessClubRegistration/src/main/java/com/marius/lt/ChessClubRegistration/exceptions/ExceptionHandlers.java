@@ -8,7 +8,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +18,8 @@ public class ExceptionHandlers {
     // Handle resource not found exception
     @ExceptionHandler(NoResultException.class)
     public ResponseEntity<?> handleResourceNotFound(
-            NoResultException e,
-            WebRequest request) {
-        return new ResponseEntity<>(new ErrorDetails(e.getMessage()), HttpStatus.NOT_FOUND);
+            NoResultException e) {
+        return new ResponseEntity<>(new ErrorDetails(e.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
 
     // Handle custom validation errors
@@ -35,7 +33,7 @@ public class ExceptionHandlers {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        return new ResponseEntity<>(new ErrorDetails("Validation error", errors),
+        return new ResponseEntity<>(new ErrorDetails("Validation error", errors, HttpStatus.BAD_REQUEST.value()),
                 HttpStatus.BAD_REQUEST);
     }
 }

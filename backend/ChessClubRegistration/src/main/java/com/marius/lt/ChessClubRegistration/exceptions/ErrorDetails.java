@@ -12,15 +12,18 @@ public class ErrorDetails {
 
     private LocalDateTime timestamp;
     private String message;
+    private int status;
     private Map<String, String> details;
 
-    public ErrorDetails(String message) {
+    public ErrorDetails(String message, int status) {
         this.timestamp = LocalDateTime.now();
+        this.status = status;
         this.message = message;
     }
 
-    public ErrorDetails(String message, Map<String, String> details) {
+    public ErrorDetails(String message, Map<String, String> details, int status) {
         this.timestamp = LocalDateTime.now();
+        this.status = status;
         this.message = message;
         this.details = details;
     }

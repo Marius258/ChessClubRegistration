@@ -38,10 +38,10 @@ public class ChessPlayerController {
         ChessPlayer existingPlayer = chessPlayerService.getChessPlayerById(chessPlayerPayloadDTO.getPin());
         if (existingPlayer != null) {
             // Player already exists in the database
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Pin already taken"));
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Pin already taken", HttpStatus.CONFLICT.value()));
         } else if (chessPlayerService.getChessPlayerByEmail(chessPlayerPayloadDTO.getEmail()) != null) {
             // Player email already exists in the database
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Email already taken"));
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Email already taken", HttpStatus.CONFLICT.value()));
         }
         this.chessPlayerService.saveChessPlayer(ChessPlayerConverter.convertChessPlayerPayloadDtoToEntity(chessPlayerPayloadDTO));
         return ResponseEntity.ok().build();

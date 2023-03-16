@@ -43,7 +43,9 @@ const renderMemberList = (members) => {
     const editBtn = document.createElement('a')
     editBtn.innerText = 'edit'
     editBtn.classList = 'btn btn-warning'
-    editBtn.href = '../edit-member/edit-member.html'
+    editBtn.addEventListener('click', async () => {
+      window.location.replace(`../edit-member/edit-member.html?id=${m.pin}`)
+    })
     actionsCell.appendChild(editBtn)
 
     const deleteBtn = document.createElement('button')
@@ -51,6 +53,7 @@ const renderMemberList = (members) => {
     deleteBtn.classList = 'btn btn-danger'
     deleteBtn.addEventListener('click', () => {
       deleteMemberById(m.pin)
+      alert('Member deleted')
       window.location.reload()
     })
     actionsCell.appendChild(deleteBtn)

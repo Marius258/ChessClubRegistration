@@ -12,10 +12,12 @@ const handleFormSubmit = async () => {
       email: addMemberForm.email.value,
       startedPlaying: addMemberForm.startedPlaying.value,
     }
-    const savedMember = await saveMember(member)
-    if (savedMember.message) {
-      errorHandler(savedMember)
+    const response = await saveMember(member)
+    if (response) {
+      errorHandler(response)
+      return
     }
+    window.location.replace('../members-list/members-list.html')
   })
 }
 

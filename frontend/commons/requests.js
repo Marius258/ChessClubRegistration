@@ -20,18 +20,24 @@ export const saveMember = async (member) => {
     },
     body: JSON.stringify(member),
   })
-  const data = await response.json()
-  return data
+  if (!response.ok) {
+    const data = await response.json()
+    return data
+  }
 }
 
 export const patchMember = async (member, id) => {
-  await fetch(`${API_URL}/chess_player/${id}`, {
+  const response = await fetch(`${API_URL}/chess_player/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(member),
   })
+  if (!response.ok) {
+    const data = await response.json()
+    return data
+  }
 }
 
 export const deleteMemberById = async (memberId) => {

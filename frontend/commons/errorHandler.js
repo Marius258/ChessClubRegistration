@@ -1,5 +1,6 @@
 export const errorHandler = (error) => {
   const errorContainer = document.querySelector('#errorContainer')
+  errorContainer.innerHTML = ''
   errorContainer.classList = 'alert alert-warning alert-dismissible fade show'
 
   const strong = document.createElement('strong')

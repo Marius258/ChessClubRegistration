@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -35,7 +36,7 @@ public class ChessPlayerController {
 
     @PostMapping
     ResponseEntity<?> addChessPlayer(@Valid @RequestBody ChessPlayerPayloadDTO chessPlayerPayloadDTO) {
-        ChessPlayer existingPlayer = chessPlayerService.getChessPlayerById(chessPlayerPayloadDTO.getPin());
+        ChessPlayer existingPlayer = chessPlayerService.getChessPlayerByPin(chessPlayerPayloadDTO.getPin());
         if (existingPlayer != null) {
             // Player already exists in the database
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Pin already taken", HttpStatus.CONFLICT.value()));
@@ -69,7 +70,13 @@ public class ChessPlayerController {
     ResponseEntity<?> editChessPlayerById(@PathVariable Long id, @Valid @RequestBody ChessPlayerEditDTO chessPlayerEditDTO) {
         ChessPlayer existingPlayer = this.chessPlayerService.getChessPlayerById(id);
         if (existingPlayer == null) {
+            // Player not found in the database
             throw new NoResultException("Chess player not found");
+        }
+        ChessPlayer existingPlayerByEmail = chessPlayerService.getChessPlayerByEmail(chessPlayerEditDTO.getEmail());
+        if (existingPlayerByEmail != null && !Objects.equals(existingPlayerByEmail.getPin(), existingPlayer.getPin())) {
+            // Player email already exists in the database
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Email already taken", HttpStatus.CONFLICT.value()));
         }
         this.chessPlayerService.editItemById(existingPlayer, ChessPlayerConverter.convertChessPlayerEditDtoToEntity(chessPlayerEditDTO));
         return ResponseEntity.ok().build();

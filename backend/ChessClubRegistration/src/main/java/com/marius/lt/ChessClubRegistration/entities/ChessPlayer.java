@@ -1,9 +1,7 @@
 package com.marius.lt.ChessClubRegistration.entities;
 
 import com.marius.lt.ChessClubRegistration.entities.enums.Genders;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +15,9 @@ import java.time.Period;
 @Entity
 public class ChessPlayer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
     @Column(nullable = false)
     private Long pin; // PERSONAL IDENTIFICATION NUMBER
     @Column(nullable = false)

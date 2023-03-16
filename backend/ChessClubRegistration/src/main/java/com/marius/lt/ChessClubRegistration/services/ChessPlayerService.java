@@ -27,6 +27,10 @@ public class ChessPlayerService {
         return optionalChessPlayer.orElse(null);
     }
 
+    public ChessPlayer getChessPlayerByPin(Long pin){
+        return this.chessPlayerRepository.findByPin(pin);
+    }
+
     public void editItemById(ChessPlayer oldChessPlayer, ChessPlayer newChessPlayer) {
 
         if (newChessPlayer.getPin() != null && !oldChessPlayer.getPin().equals(newChessPlayer.getPin())) {

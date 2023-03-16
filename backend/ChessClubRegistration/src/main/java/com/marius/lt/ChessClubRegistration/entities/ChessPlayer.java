@@ -32,6 +32,7 @@ public class ChessPlayer {
         return Genders.getGenderByPin(this.getFirstDigitFromPin());
     }
 
+    //    Converts this.startedPlaying to a string that's returned to the frontend
     public String getTimeSinceStartedPlaying() {
         LocalDate currentDate = LocalDate.now();
         Period period = Period.between(this.startedPlaying, currentDate);
@@ -42,6 +43,7 @@ public class ChessPlayer {
         return Period.between(this.parseDobFromPin(), LocalDate.now()).getYears();
     }
 
+    //    Parses date of birth from personal identification number
     private LocalDate parseDobFromPin() {
         String pin = String.valueOf(this.pin);
         int year = Integer.parseInt(pin.substring(1, 3));
@@ -54,6 +56,7 @@ public class ChessPlayer {
         return (int) (pin / 10000000000L);
     }
 
+    //    Gets the century in which the user was born
     private int getCentury() {
         int firstDigitFromPin = this.getFirstDigitFromPin();
         int century = 0;

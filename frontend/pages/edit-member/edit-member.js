@@ -19,21 +19,17 @@ const loadMemberData = async () => {
   editMemberForm.startedPlaying.value = oldMemberData.timeSinceStartedPlaying
 }
 
+// Example "10 years 5 months 3 days" turns into 2012-10-13
 const getTimeSinceStartedPlayingDate = (timeSinceStartedPlaying) => {
   if (!timeSinceStartedPlaying) {
     return null
   }
   const timeComponents = timeSinceStartedPlaying.split(' ')
-  const years = parseInt(timeComponents[0])
-  const months = parseInt(timeComponents[2])
-  const days = parseInt(timeComponents[4])
-
   const today = new Date()
-
   const startDate = new Date(
-    today.getFullYear() - years,
-    today.getMonth() - months,
-    today.getDate() - days + 1
+    today.getFullYear() - parseInt(timeComponents[0]),
+    today.getMonth() - parseInt(timeComponents[2]),
+    today.getDate() - parseInt(timeComponents[4]) + 1
   )
 
   return startDate.toISOString().substring(0, 10)
@@ -63,7 +59,7 @@ const handleFormSubmit = async () => {
           : oldMemberData.timeSinceStartedPlaying,
     }
 
-    const response = await patchMember(member, oldMemberData.pin)
+    const response = await patchMember(member, oldMemberData.id)
     if (response) {
       errorHandler(response)
       return

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -13,7 +14,7 @@ public class ErrorDetails {
     private LocalDateTime timestamp;
     private String message;
     private int status;
-    private Map<String, String> details;
+    private List<String> details;
 
     public ErrorDetails(String message, int status) {
         this.timestamp = LocalDateTime.now();
@@ -21,7 +22,7 @@ public class ErrorDetails {
         this.message = message;
     }
 
-    public ErrorDetails(String message, Map<String, String> details, int status) {
+    public ErrorDetails(String message, List<String> details, int status) {
         this.timestamp = LocalDateTime.now();
         this.status = status;
         this.message = message;

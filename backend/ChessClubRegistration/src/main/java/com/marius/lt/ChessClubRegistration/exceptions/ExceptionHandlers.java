@@ -3,37 +3,47 @@ package com.marius.lt.ChessClubRegistration.exceptions;
 import jakarta.persistence.NoResultException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 
 @ControllerAdvice
 public class ExceptionHandlers {
 
     // Handle resource not found exception
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoResultException.class)
     public ResponseEntity<?> handleResourceNotFound(
             NoResultException e) {
-        return new ResponseEntity<>(new ErrorDetails(e.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
+        ErrorDetails errorDetails = new ErrorDetails(e.getMessage(), HttpStatus.NOT_FOUND.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDetails);
+    }
+
+    // Handles duplicate resource exceptions on columns with unique constraint
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
+    public ResponseEntity<?> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
+        List<String> errors = new ArrayList<>();
+        errors.add(e.getMessage().split("'")[1] + " is already taken");
+        ErrorDetails errorDetails = new ErrorDetails("Duplicate entry for a unique field", errors, HttpStatus.CONFLICT.value());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDetails);
     }
 
     // Handle custom validation errors
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
+            MethodArgumentNotValidException e) {
+        List<String> errors = new ArrayList<>();
+        e.getBindingResult().getAllErrors().forEach((error) -> {
+            errors.add(error.getDefaultMessage());
         });
-        return new ResponseEntity<>(new ErrorDetails("Validation error", errors, HttpStatus.BAD_REQUEST.value()),
-                HttpStatus.BAD_REQUEST);
+        ErrorDetails errorDetails = new ErrorDetails("Validation error", errors, HttpStatus.FORBIDDEN.value());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorDetails);
     }
 }

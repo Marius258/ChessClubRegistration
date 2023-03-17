@@ -27,10 +27,6 @@ public class ChessPlayerService {
         return optionalChessPlayer.orElse(null);
     }
 
-    public ChessPlayer getChessPlayerByPin(Long pin){
-        return this.chessPlayerRepository.findByPin(pin);
-    }
-
     public void editItemById(ChessPlayer oldChessPlayer, ChessPlayer newChessPlayer) {
 
         if (newChessPlayer.getPin() != null && !oldChessPlayer.getPin().equals(newChessPlayer.getPin())) {
@@ -53,9 +49,5 @@ public class ChessPlayerService {
 
     public void saveChessPlayer(ChessPlayer chessPlayer) {
         this.chessPlayerRepository.saveAndFlush(chessPlayer);
-    }
-
-    public ChessPlayer getChessPlayerByEmail(String playerEmail) {
-        return this.chessPlayerRepository.findByEmail(playerEmail);
     }
 }

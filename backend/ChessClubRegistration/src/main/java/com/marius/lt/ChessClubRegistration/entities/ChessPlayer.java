@@ -18,7 +18,7 @@ public class ChessPlayer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Long pin; // PERSONAL IDENTIFICATION NUMBER
     @Column(nullable = false)
     private String name;

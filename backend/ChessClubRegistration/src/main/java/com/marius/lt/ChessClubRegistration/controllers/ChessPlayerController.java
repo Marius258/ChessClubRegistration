@@ -9,6 +9,7 @@ import com.marius.lt.ChessClubRegistration.exceptions.ErrorDetails;
 import com.marius.lt.ChessClubRegistration.services.ChessPlayerService;
 import jakarta.persistence.NoResultException;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 
+@AllArgsConstructor
 @RestController
 @CrossOrigin
 @RequestMapping("/chess_player")
@@ -36,25 +38,18 @@ public class ChessPlayerController {
 
     @PostMapping
     ResponseEntity<?> addChessPlayer(@Valid @RequestBody ChessPlayerPayloadDTO chessPlayerPayloadDTO) {
-        ChessPlayer existingPlayer = chessPlayerService.getChessPlayerByPin(chessPlayerPayloadDTO.getPin());
-        if (existingPlayer != null) {
-            // Player already exists in the database
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Pin already taken", HttpStatus.CONFLICT.value()));
-        } else if (chessPlayerService.getChessPlayerByEmail(chessPlayerPayloadDTO.getEmail()) != null) {
-            // Player email already exists in the database
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Email already taken", HttpStatus.CONFLICT.value()));
-        }
         this.chessPlayerService.saveChessPlayer(ChessPlayerConverter.convertChessPlayerPayloadDtoToEntity(chessPlayerPayloadDTO));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
-    void deleteItem(@PathVariable Long id) {
+    ResponseEntity<?> deleteItem(@PathVariable Long id) {
         ChessPlayer chessPlayer = this.chessPlayerService.getChessPlayerById(id);
         if (chessPlayer == null) {
             throw new NoResultException("Chess player not found");
         }
         this.chessPlayerService.deleteItemById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
@@ -70,15 +65,9 @@ public class ChessPlayerController {
     ResponseEntity<?> editChessPlayerById(@PathVariable Long id, @Valid @RequestBody ChessPlayerEditDTO chessPlayerEditDTO) {
         ChessPlayer existingPlayer = this.chessPlayerService.getChessPlayerById(id);
         if (existingPlayer == null) {
-            // Player not found in the database
             throw new NoResultException("Chess player not found");
         }
-        ChessPlayer existingPlayerByEmail = chessPlayerService.getChessPlayerByEmail(chessPlayerEditDTO.getEmail());
-        if (existingPlayerByEmail != null && !Objects.equals(existingPlayerByEmail.getPin(), existingPlayer.getPin())) {
-            // Player email already exists in the database
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails("Email already taken", HttpStatus.CONFLICT.value()));
-        }
         this.chessPlayerService.editItemById(existingPlayer, ChessPlayerConverter.convertChessPlayerEditDtoToEntity(chessPlayerEditDTO));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

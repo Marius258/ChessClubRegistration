@@ -59,12 +59,10 @@ const handleFormSubmit = async () => {
           : oldMemberData.timeSinceStartedPlaying,
     }
 
-    const response = await patchMember(member, oldMemberData.id)
-    if (response) {
-      errorHandler(response)
-      return
+    const requestSuccessful = await patchMember(member, oldMemberData.id)
+    if (requestSuccessful) {
+      window.location.replace('../members-list/members-list.html')
     }
-    window.location.replace('../members-list/members-list.html')
   })
 }
 

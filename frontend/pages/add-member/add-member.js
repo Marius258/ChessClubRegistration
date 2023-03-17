@@ -1,5 +1,4 @@
 import { saveMember } from '../../commons/requests.js'
-import { errorHandler } from '../../commons/errorHandler.js'
 
 const handleFormSubmit = async () => {
   const addMemberForm = document.querySelector('#addMemberForm')
@@ -12,12 +11,10 @@ const handleFormSubmit = async () => {
       email: addMemberForm.email.value,
       startedPlaying: addMemberForm.startedPlaying.value,
     }
-    const response = await saveMember(member)
-    if (response) {
-      errorHandler(response)
-      return
+    const requestSuccessful = await saveMember(member)
+    if (requestSuccessful) {
+      window.location.replace('../members-list/members-list.html')
     }
-    window.location.replace('../members-list/members-list.html')
   })
 }
 

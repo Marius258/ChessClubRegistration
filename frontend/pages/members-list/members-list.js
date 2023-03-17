@@ -3,10 +3,6 @@ import { errorHandler } from '../../commons/errorHandler.js'
 
 const renderMemberList = (members) => {
   const memberListTable = document.querySelector('#memberListTable')
-  if (members.message) {
-    errorHandler(members)
-    return
-  }
   memberListTable.classList = 'd-table table table-striped '
   const memberListTableBody = document.querySelector('#memberListTableBody')
   members.forEach((m) => {
@@ -64,5 +60,7 @@ const renderMemberList = (members) => {
 
 ;(async () => {
   const members = await getMembers()
-  renderMemberList(members)
+  if (members != null) {
+    renderMemberList(members)
+  }
 })()

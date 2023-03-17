@@ -1,5 +1,4 @@
 import { getMembers, deleteMemberById } from '../../commons/requests.js'
-import { errorHandler } from '../../commons/errorHandler.js'
 
 const renderMemberList = (members) => {
   const memberListTable = document.querySelector('#memberListTable')

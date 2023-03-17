@@ -1,5 +1,4 @@
 import { getMemberById, patchMember } from '../../commons/requests.js'
-import { errorHandler } from '../../commons/errorHandler.js'
 
 const editMemberForm = document.querySelector('#editMemberForm')
 

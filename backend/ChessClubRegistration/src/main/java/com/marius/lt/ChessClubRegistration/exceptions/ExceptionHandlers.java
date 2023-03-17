@@ -21,7 +21,7 @@ public class ExceptionHandlers {
     public ResponseEntity<?> handleResourceNotFound(
             NoResultException e) {
         ErrorDetails errorDetails = new ErrorDetails(e.getMessage(), HttpStatus.NOT_FOUND.value());
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorDetails);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
     }
 
     // Handles duplicate resource exceptions on columns with unique constraint

@@ -21,7 +21,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @RestController
 @CrossOrigin
-@RequestMapping("/chess_player")
+@RequestMapping("/player")
 public class ChessPlayerController {
 
     @Autowired

@@ -4,12 +4,12 @@ public enum Genders {
     MALE("male", 3, 5),
     FEMALE("female", 4, 6);
 
-    private final String gender;
+    private final String title;
     private final int twentiethCentury;
     private final int twentyFirstCentury;
 
-    Genders(String gender, int twentiethCentury, int twentyFirstCentury) {
-        this.gender = gender;
+    Genders(String title, int twentiethCentury, int twentyFirstCentury) {
+        this.title = title;
         this.twentiethCentury = twentiethCentury;
         this.twentyFirstCentury = twentyFirstCentury;
     }
@@ -18,7 +18,7 @@ public enum Genders {
         String gender = "unknown";
         for (Genders g : Genders.values()) {
             if (g.twentiethCentury == firstDigitFromPin || g.twentyFirstCentury == firstDigitFromPin) {
-                gender = g.gender;
+                gender = g.title;
                 break;
             }
         }
